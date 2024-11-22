@@ -36,11 +36,12 @@ router.post("/sign-up", async (req, res) => {
         username: user.username,
       };
       
-      req.session.save(() => {
-        res.redirect("/");
-      });
+    //   req.session.save(() => {
+    //     res.redirect("/");
+    //   });
       
-    res.send(`Your account has been created ${user.username}!`);
+    // res.send(`Your account has been created ${user.username}!`);
+    res.redirect("/");
 });
 
 
@@ -55,7 +56,7 @@ router.post("/sign-in", async (req,res) => {
     if (!userInDatabase) { // if username doesn't exist, send failed message
         return res.send("Login request failed. Please try again.")
     };
-    const validPassword = bcrypt.compareSync( // hash entered pw and compare it to pw in database
+    const validPassword = bcrypt.compareSync( // encrypt/hash entered pw and compare it to pw in database
         req.body.password,
         userInDatabase.password
     );

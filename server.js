@@ -48,14 +48,16 @@ app.use(express.urlencoded({ extended: false }));
 // Middleware for using HTTP verbs such as PUT or DELETE
 app.use(methodOverride("_method"));
 // Morgan for logging HTTP requests
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // ============================================ ROUTES ============================================ // 
 
 // GET / homepage
 app.get("/", async (req, res) => {
+    const user = req.session.user ? req.session.user : null;
+    // console.log(user);
     res.render("index.ejs", { // send user variable to index.ejs, if user = undefined -> send user to sign up/in page, if user = value -> send to personalized welcome
-        user: req.session.user,
+        user,
     });
     // res.render("index.ejs");
   });
